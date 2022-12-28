@@ -1,4 +1,5 @@
 import Player from '@vimeo/player';
+import _ from 'lodash';
 
 const iframe = document.querySelector('#vimeo-player');
 const player = new Player(iframe);
@@ -7,16 +8,19 @@ const player = new Player(iframe);
 // kapitaliki - zmienne, ktore maja sluzyc w calej aplikacji
 const STORAGE_KEY = 'videoplayer-current-time';
 
-function trackTime({ seconds } = 0) {
-  console.log({ seconds });
+const trackTime = ({ seconds } = 0) => {
   localStorage.setItem(STORAGE_KEY, seconds);
-}
+};
 
-player.on('timeupdate', trackTime);
+const lastTimeFinished = () => {
+  return localStorage.getItem(STORAGE_KEY);
+};
 
 player
-  .setCurrentTime(trackTime())
-  .then(function (seconds) {})
+  .setCurrentTime(lastTimeFinished())
+  .then(function (seconds) {
+    console.log(seconds);
+  })
   .catch(function (error) {
     switch (error.name) {
       case 'RangeError':
@@ -27,3 +31,4 @@ player
         break;
     }
   });
+player.on('timeupdate', _.throttle(trackTime, 1000));
