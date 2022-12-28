@@ -6,14 +6,14 @@ const player = new Player(iframe);
 
 // klucz do local storage
 // kapitaliki - zmienne, ktore maja sluzyc w calej aplikacji
-const STORAGE_KEY = 'videoplayer-current-time';
+const STORAGE_KEY_VIDEO = 'videoplayer-current-time';
 
 const trackTime = ({ seconds } = 0) => {
-  localStorage.setItem(STORAGE_KEY, seconds);
+  localStorage.setItem(STORAGE_KEY_VIDEO, seconds);
 };
 
 const lastTimeFinished = () => {
-  return localStorage.getItem(STORAGE_KEY);
+  return localStorage.getItem(STORAGE_KEY_VIDEO);
 };
 
 player
