@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const formEl = document.querySelector('.feedback-form');
 const STORAGE_KEY_FORM = 'feedback-form-state';
-const unstringifiedFields = localStorage.getItem(STORAGE_KEY_FORM);
+// const unstringifiedFields = localStorage.getItem(STORAGE_KEY_FORM);
 
 // keeping values from email and message in local storage
 // in an object {}
@@ -22,21 +22,19 @@ const trackInput = e => {
 formEl.addEventListener('input', _.throttle(trackInput, 500));
 
 // handle submit - log object with fields, clear storage
-formEl.addEventListener('submit', e => {
-  e.preventDefault();
-  //   const unstringifiedFields = localStorage.getItem(STORAGE_KEY_FORM);
-  console.log(JSON.parse(unstringifiedFields));
+formEl.addEventListener('submit', () => {
+  console.log(feedbackField);
   localStorage.clear();
 });
 
 // after reloading the page fill input fields with local storage
 window.addEventListener('load', () => {
-  formEl.elements.email.value = localStorage.getItem(
-    JSON.parse(unstringifiedFields).email
-  );
-  formEl.elements.message.value = localStorage.getItem(
-    JSON.parse(unstringifiedFields).message
-  );
+  formEl.elements.email.value = JSON.parse(
+    localStorage.getItem(STORAGE_KEY_FORM)
+  ).email;
+  formEl.elements.message.value = JSON.parse(
+    localStorage.getItem(STORAGE_KEY_FORM)
+  ).message;
 });
 
 // console.log(typeof JSON.parse(unstringifiedFields).message);
