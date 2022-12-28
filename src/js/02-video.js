@@ -4,7 +4,7 @@ const iframe = document.querySelector('#vimeo-player');
 const player = new Player(iframe);
 
 // klucz do local storage
-// kapitaliki - zmienne, ktore maja sluzyc w calym pliku/aplikacji
+// kapitaliki - zmienne, ktore maja sluzyc w calej aplikacji
 const STORAGE_KEY = 'videoplayer-current-time';
 
 function trackTime({ seconds } = 0) {
